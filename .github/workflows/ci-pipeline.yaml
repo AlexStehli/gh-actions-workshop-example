@@ -12,13 +12,8 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: install dependencies
-        run: npm ci
+      - uses: ./.github/actions/install
+        name: Set up node and npm
 
       - name: check code format
         run: npm run prettier
@@ -70,13 +65,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up node 20
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: npm ci
+      - uses: ./.github/actions/install
+        name: Set up node and npm
 
       - name: Install Playwright Browsers
         run: npx playwright install ${{  matrix.browser }}
