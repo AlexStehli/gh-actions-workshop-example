@@ -8,3 +8,5 @@
 - Install all project dependencies with `npm ci`
 - Run tests with `npm run test` and run the dev server with `npm run dev`
 - Open http://localhost:5173/gh-actions-workshop-example/ in your browser
+
+asdf
