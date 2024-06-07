@@ -47,6 +47,7 @@ jobs:
 
     environment:
       name: github-pages
+      url: https://alexstehli.github.io/gh-actions-workshop-example/
 
     steps:
       - name: deploy gh pages
