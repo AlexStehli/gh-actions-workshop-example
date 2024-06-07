@@ -1,0 +1,32 @@
+name: npm CI pipeline
+
+run-name: ${{ github.actor }} is testing out GitHub Actions
+
+on: [push, workflow_dispatch]
+
+jobs:
+  ci-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: install dependencies
+        run: npm ci
+
+      - name: check code format
+        run: npm run prettier
+
+      - name: check types
+        run: npm run typecheck
+
+      - name: run tests
+        run: npm run test
+
+      - name: build app
+        run: npm run build
