@@ -47,11 +47,15 @@ jobs:
 
     environment:
       name: github-pages
-      url: https://alexstehli.github.io/gh-actions-workshop-example/
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: deploy gh pages
+        id: deployment
         uses: actions/deploy-pages@v4
+
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
 
   smoke-test:
     needs: cd-pipeline
@@ -77,11 +81,11 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install ${{  matrix.browser }}
 
-      - name: Run Playwright tests
+      - name: Run Playwright tests on ${{ matrix.browser }}
         run: npx playwright test --project ${{ matrix.browser }}
 
         env:
-          PLAYWRIGHT_BASE_URL: https://alexstehli.github.io/gh-actions-workshop-example/
+          PLAYWRIGHT_BASE_URL: ${{ needs.cd-pipeline.outputs.page_url }}
 
       - uses: actions/upload-artifact@v4
         if: always()
